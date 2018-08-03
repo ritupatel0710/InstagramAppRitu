@@ -80,7 +80,7 @@
                                         </state>
                                         <connections>
                                             <action selector="signInClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NI7-lz-GxU"/>
-                                            <segue destination="paw-2i-YLj" kind="show" id="R9B-lO-tCx"/>
+                                            <segue destination="paw-2i-YLj" kind="show" id="hTK-fn-iex"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -176,7 +176,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signUpClick:" destination="RYj-Cc-wdV" eventType="touchUpInside" id="TeW-0i-rNQ"/>
-                                    <segue destination="paw-2i-YLj" kind="show" id="3Ia-ZR-dk7"/>
+                                    <segue destination="paw-2i-YLj" kind="show" id="4SL-Ps-nXO"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instagram" translatesAutoresizingMaskIntoConstraints="NO" id="nWo-iY-3eD">
@@ -285,7 +285,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signInClick:" destination="paw-2i-YLj" eventType="touchUpInside" id="ySa-Le-ffK"/>
-                                    <segue destination="o6g-ia-5Ur" kind="show" id="d1k-J3-p1J"/>
+                                    <segue destination="n47-Ic-0Yu" kind="show" id="ky3-aN-mbB"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instagram" translatesAutoresizingMaskIntoConstraints="NO" id="4d0-Ya-rF0">
@@ -404,120 +404,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KmT-f6-xHI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1753" y="441"/>
-        </scene>
-        <!--Home View Controller-->
-        <scene sceneID="mQX-GD-QSs">
-            <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="o6g-ia-5Ur" customClass="HomeViewController" customModule="InstagramAppRitu" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="z0S-De-TVC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUG-zn-n86">
-                                <rect key="frame" x="312" y="75" width="57" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Settings"/>
-                                <connections>
-                                    <segue destination="glj-2h-dL5" kind="show" id="Npe-77-2Qr"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Hp5-XV-eW2"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8HH-79-eMG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2630" y="422"/>
-        </scene>
-        <!--Settings View Controller-->
-        <scene sceneID="aQC-RQ-SpE">
-            <objects>
-                <viewController storyboardIdentifier="SettingsViewController" id="glj-2h-dL5" customClass="SettingsViewController" customModule="InstagramAppRitu" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eBK-G3-fcv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tgi-ei-UWw">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" id="PIu-hk-z7d">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PIu-hk-z7d" id="qa5-IA-mAc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="lS3-nJ-UG5" kind="show" id="FOA-9u-v6k"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="glj-2h-dL5" id="efm-5u-Vsr"/>
-                                    <outlet property="delegate" destination="glj-2h-dL5" id="g0B-Op-Hws"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="tgi-ei-UWw" firstAttribute="leading" secondItem="dqG-8Y-kgf" secondAttribute="leading" id="56k-d0-hy8"/>
-                            <constraint firstItem="dqG-8Y-kgf" firstAttribute="trailing" secondItem="tgi-ei-UWw" secondAttribute="trailing" id="6W3-5L-O1e"/>
-                            <constraint firstItem="dqG-8Y-kgf" firstAttribute="bottom" secondItem="tgi-ei-UWw" secondAttribute="bottom" id="OgJ-F7-XQr"/>
-                            <constraint firstItem="tgi-ei-UWw" firstAttribute="top" secondItem="dqG-8Y-kgf" secondAttribute="top" id="skb-uu-AcC"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="dqG-8Y-kgf"/>
-                    </view>
-                    <connections>
-                        <outlet property="tblView" destination="tgi-ei-UWw" id="JEt-iq-jgl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="asF-DW-Ddi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3457" y="421"/>
-        </scene>
-        <!--Update Password View Controller-->
-        <scene sceneID="qvI-uD-pKK">
-            <objects>
-                <viewController id="lS3-nJ-UG5" customClass="UpdatePasswordViewController" customModule="InstagramAppRitu" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="y0B-6t-NHn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Update Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oek-iF-b6r">
-                                <rect key="frame" x="30" y="134" width="315" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="4pq-uy-6AK"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztR-wJ-oIo">
-                                <rect key="frame" x="116" y="241" width="121" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Update Password"/>
-                                <connections>
-                                    <action selector="updatePassword:" destination="lS3-nJ-UG5" eventType="touchUpInside" id="aIz-Xa-OEc"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="oek-iF-b6r" firstAttribute="top" secondItem="12E-eD-EpH" secondAttribute="top" constant="70" id="4pw-ZP-PNV"/>
-                            <constraint firstItem="oek-iF-b6r" firstAttribute="leading" secondItem="12E-eD-EpH" secondAttribute="leading" constant="30" id="8js-es-ZIW"/>
-                            <constraint firstItem="12E-eD-EpH" firstAttribute="trailing" secondItem="oek-iF-b6r" secondAttribute="trailing" constant="30" id="zMF-kX-a7w"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="12E-eD-EpH"/>
-                    </view>
-                    <connections>
-                        <outlet property="updatePasswordTF" destination="oek-iF-b6r" id="cFo-hj-uei"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d1w-rU-s8I" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4312.8000000000002" y="406.14692653673166"/>
         </scene>
         <!--Reset Password View Controller-->
         <scene sceneID="3dB-PH-gda">
@@ -642,11 +528,50 @@
             </objects>
             <point key="canvasLocation" x="-79.200000000000003" y="133.5832083958021"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="7GQ-ND-Q2g">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="n47-Ic-0Yu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="07X-QC-sXC">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="g3S-P3-180" kind="relationship" relationship="viewControllers" id="o6B-uU-fcf"/>
+                        <segue destination="rKw-YN-r7L" kind="relationship" relationship="viewControllers" id="khv-ze-J3e"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IrL-IK-rtd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2629.5999999999999" y="421.43928035982015"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="QXH-pl-K8d">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" id="g3S-P3-180" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Kkk-aQ-MSq"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ep2-Tb-Jd6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3171" y="305"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="tHo-Gu-Nr1">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="rKw-YN-r7L" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="G4v-Oz-CTn"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Ct-Vz-Xlo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3174" y="553"/>
+        </scene>
     </scenes>
     <resources>
         <image name="instagram" width="100" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="R9B-lO-tCx"/>
+        <segue reference="hTK-fn-iex"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -5,19 +5,31 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var tblView: UITableView!
     
-    var arr = ["Upddate Password", "Signout"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //tblView.tableFooterView = view
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arr.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell")
-        cell?.textLabel?.text = arr[indexPath.row]
+        
+        switch indexPath.row {
+        case 0:
+            cell?.textLabel?.text = "Update Password"
+            let controller = storyboard?.instantiateViewController(withIdentifier: "UpdatePasswordViewController") as! UpdatePasswordViewController
+            navigationController?.pushViewController(controller, animated: true)
+        case 1:
+            cell?.textLabel?.text = "Sign Out"
+            navigationController?.popToRootViewController(animated: true)
+        default:
+            break
+        }
+        
         return cell!
     }
 }

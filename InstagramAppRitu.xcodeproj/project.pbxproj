@@ -21,6 +21,12 @@
 		495208B32113387700A55944 /* SignInSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495208B22113387700A55944 /* SignInSignUpModel.swift */; };
 		495208B521133A4100A55944 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495208B421133A4100A55944 /* SettingsViewController.swift */; };
 		495208B721133C1E00A55944 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495208B621133C1E00A55944 /* UpdatePasswordViewController.swift */; };
+		495208D721136B9300A55944 /* PublicUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495208D621136B9300A55944 /* PublicUser.swift */; };
+		495208D921136B9E00A55944 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495208D821136B9E00A55944 /* CurrentUser.swift */; };
+		495208DD21136ED800A55944 /* UpdateUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495208DC21136ED800A55944 /* UpdateUserProfileViewController.swift */; };
+		495208E021138F3300A55944 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495208DF21138F3300A55944 /* Home.storyboard */; };
+		495208E221138F4F00A55944 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495208E121138F4F00A55944 /* Profile.storyboard */; };
+		49557A3B2113AFFF005F605D /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49557A3A2113AFFE005F605D /* UserProfileViewController.swift */; };
 		E85B5E0DF19E31ADEB243B2F /* Pods_InstagramAppRitu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4A6B445318D861CED0BCDD /* Pods_InstagramAppRitu.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +47,12 @@
 		495208B22113387700A55944 /* SignInSignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpModel.swift; sourceTree = "<group>"; };
 		495208B421133A4100A55944 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		495208B621133C1E00A55944 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
+		495208D621136B9300A55944 /* PublicUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUser.swift; sourceTree = "<group>"; };
+		495208D821136B9E00A55944 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
+		495208DC21136ED800A55944 /* UpdateUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileViewController.swift; sourceTree = "<group>"; };
+		495208DF21138F3300A55944 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		495208E121138F4F00A55944 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		49557A3A2113AFFE005F605D /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		7E0710447E9262ED3F72B659 /* Pods-InstagramAppRitu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramAppRitu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramAppRitu/Pods-InstagramAppRitu.debug.xcconfig"; sourceTree = "<group>"; };
 		DE4A6B445318D861CED0BCDD /* Pods_InstagramAppRitu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramAppRitu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -87,14 +99,13 @@
 		493E17642112998300768C30 /* InstagramAppRitu */ = {
 			isa = PBXGroup;
 			children = (
+				495208DE21138F2100A55944 /* Storyboards */,
 				493E179B2112A56D00768C30 /* Controller */,
 				493E179021129F0100768C30 /* Model */,
 				493E177921129A4500768C30 /* AppDelegate.swift */,
 				493E178021129A4700768C30 /* Info.plist */,
 				493E179C2112A70A00768C30 /* Assets.xcassets */,
 				493E178B21129B6400768C30 /* GoogleService-Info.plist */,
-				493E177A21129A4500768C30 /* LaunchScreen.storyboard */,
-				493E177721129A4400768C30 /* Main.storyboard */,
 			);
 			path = InstagramAppRitu;
 			sourceTree = "<group>";
@@ -103,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				495208B22113387700A55944 /* SignInSignUpModel.swift */,
+				495208D621136B9300A55944 /* PublicUser.swift */,
+				495208D821136B9E00A55944 /* CurrentUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -117,8 +130,21 @@
 				493E179E2112B43300768C30 /* ResetPasswordViewController.swift */,
 				495208B421133A4100A55944 /* SettingsViewController.swift */,
 				495208B621133C1E00A55944 /* UpdatePasswordViewController.swift */,
+				495208DC21136ED800A55944 /* UpdateUserProfileViewController.swift */,
+				49557A3A2113AFFE005F605D /* UserProfileViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		495208DE21138F2100A55944 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				495208DF21138F3300A55944 /* Home.storyboard */,
+				493E177A21129A4500768C30 /* LaunchScreen.storyboard */,
+				493E177721129A4400768C30 /* Main.storyboard */,
+				495208E121138F4F00A55944 /* Profile.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		9B5B75F119100A80B2A7CE11 /* Frameworks */ = {
@@ -193,7 +219,9 @@
 				493E178121129A4700768C30 /* Main.storyboard in Resources */,
 				493E178C21129B6500768C30 /* GoogleService-Info.plist in Resources */,
 				493E178A21129A4700768C30 /* Info.plist in Resources */,
+				495208E021138F3300A55944 /* Home.storyboard in Resources */,
 				493E178421129A4700768C30 /* LaunchScreen.storyboard in Resources */,
+				495208E221138F4F00A55944 /* Profile.storyboard in Resources */,
 				493E179D2112A70A00768C30 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,13 +282,17 @@
 			files = (
 				493E178921129A4700768C30 /* HomeViewController.swift in Sources */,
 				495208B32113387700A55944 /* SignInSignUpModel.swift in Sources */,
+				495208D921136B9E00A55944 /* CurrentUser.swift in Sources */,
 				495208B721133C1E00A55944 /* UpdatePasswordViewController.swift in Sources */,
 				493E178521129A4700768C30 /* ViewController.swift in Sources */,
 				493E178321129A4700768C30 /* AppDelegate.swift in Sources */,
 				493E178721129A4700768C30 /* SignUpViewController.swift in Sources */,
 				493E179F2112B43300768C30 /* ResetPasswordViewController.swift in Sources */,
+				49557A3B2113AFFF005F605D /* UserProfileViewController.swift in Sources */,
+				495208D721136B9300A55944 /* PublicUser.swift in Sources */,
 				493E178221129A4700768C30 /* SignInViewController.swift in Sources */,
 				495208B521133A4100A55944 /* SettingsViewController.swift in Sources */,
+				495208DD21136ED800A55944 /* UpdateUserProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

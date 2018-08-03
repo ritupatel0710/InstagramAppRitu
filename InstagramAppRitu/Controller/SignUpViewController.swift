@@ -22,8 +22,18 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpClick(_ sender: UIButton) {
-        signInSignUpModelObj.signUp(fullname: fullNameTF.text!, email: emailTF.text!, username: usernameTF.text!, password: passwordTF.text!)
+        signInSignUpModelObj.signUp(fullname: fullNameTF.text!, email: emailTF.text!, username: usernameTF.text!, password: passwordTF.text!) { (error) in
+            
+            if error == nil{
+                self.performSegue(withIdentifier: "SignInViewController", sender: nil)
+                TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successful Sign Up", type: .success, duration: 2.0)
+            }else{
+                
+                TWMessageBarManager.sharedInstance().showMessage(withTitle: "ERROR!", description: error.localizedDescription, type: .error, duration: 2.0)
+            }
+        }
     }
+    
     
     @IBAction func signInClick(_ sender: UIButton) {
         
