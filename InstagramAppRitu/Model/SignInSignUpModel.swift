@@ -24,41 +24,46 @@ class SignInSignUpModel{
         storageRef = Storage.storage().reference()
     }
     
-    func signUp(fullname: String, email: String, username: String, password: String,completion : @escaping (Error) -> Void){
+    func signUp(fullname: String, email: String, username: String, password: String,completion : @escaping (Error?) -> Void){
         
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-            if error != nil{
-                completion(error!)
+            if let err = error{
+                completion(err)
             }else{
                 let dict = ["fullName":fullname,"email":email,"username":username,"password":password]
+        
                 
-                self.currentUserInstance.email = email
-                self.currentUserInstance.fullname = fullname
-                self.currentUserInstance.password = password
-                self.currentUserInstance.username = username
                 
                 self.databaseRef.child("User").child((authResult?.user.uid)!).updateChildValues(dict)
-                if let err = error{
-                    completion(err)
-                }
+                //If error is Nil then it should allow to sign-up User and Perform segue to Sign-In(In viewcontroller).
+                completion(error)
             }
             print(CurrentUser.sharedInstance.email)
         }
     }
     
-    func signIn(email:String, password: String,completion : @escaping (Error) -> Void){
+    func signIn(email:String, password: String,completion : @escaping (Error?) -> Void){
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-            if error != nil{
-                completion(error!)
-                
+            let userid = Auth.auth().currentUser?.uid
+            if let err = error{
+                completion(err)
             }else{
-                if let err = error{
-                    completion(err)
-                }
+                self.currentUserInstance.email = email
+                
+                self.databaseRef.child("User").child(userid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    if let userSnapshot = snapshot.value as? Dictionary<String, Any>{
+                        self.currentUserInstance.fullname = userSnapshot["fullName"] as? String
+                        self.currentUserInstance.username = userSnapshot["username"] as? String
+                        self.currentUserInstance.imageURL = userSnapshot["imageURL"] as? String
+                    }
+                })
+        
+                //If error is Nil then it should allow to sign-in User and Perform segue to Home Controller(in ViewController).
+                completion(error)
             }
         }
     }
-    
     
     func resetPassword(email: String){
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
@@ -87,12 +92,17 @@ class SignInSignUpModel{
     }
     
     func updatePassword(pwd: String){
+        
         Auth.auth().currentUser?.updatePassword(to: pwd) { (error) in
-            TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successfully Password Updated", type: .success, duration: 5.0)
+            TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successfully Password Updated", type: .success, duration: 2.0)
         }
     }
     
-    func updateProfile(fullname:String, email:String, username: String, password: String){
+    func updateProfile(fullname:String, email:String, username: String){
+        
+        self.currentUserInstance.email = email
+        self.currentUserInstance.fullname = fullname
+        self.currentUserInstance.username = username
         
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
         
@@ -102,66 +112,59 @@ class SignInSignUpModel{
             }else{
                 let userid = Auth.auth().currentUser?.uid
                 //CurrentUser.sharedInstance.
-                let dict = ["fullName":fullname,"email":email,"username":username,"password":password]
+                let dict = ["fullName":fullname,"email":email,"username":username]
                 self.databaseRef.child("User").child(userid!).updateChildValues(dict)
                 TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successful Update Profile", type: .success, duration: 5.0)
             }
         }
     }
-//    self.currentUserInstance.email = email
-//    self.currentUserInstance.fullname = fullname
-//    self.currentUserInstance.username = username
-//    self.currentUserInstance.password = password
+    
     
     func getUserProfile() -> Dictionary<String, String>{
+        
         let instance = CurrentUser.sharedInstance
         print(instance.email)
-        let dict : Dictionary<String, String> = ["fullname":instance.fullname!,"email":instance.email,"username":instance.username!,"password":instance.password!]
+        print(instance.email)
+        let dict : Dictionary<String, String> = ["fullname":instance.fullname!,"email":instance.email,"username":instance.username!]
         return dict
-//        databaseRef.child("User").observeSingleEvent(of: .value) { (snapshot) in
-//            guard let values = snapshot.value as? [String: Any] else{
-//                return
-//            }
-//            for item in values{
-//                if let dict = item.value as? Dictionary<String, Any>{
-//                    print(dict)
-//                }
-//            }
-//        }
+
     }
     
-    func uploadimageintoFirebase(img:UIImage){
+    func uploadimageintoFirebase(_ img:UIImage, completion : @escaping (URL?)->()){
        
             let userid = Auth.auth().currentUser?.uid
-            print(userid)
-            // get image
-        
             let data = UIImageJPEGRepresentation(img, 0.5)
-            //save img to nornaml data
-            //nrml data to metadata
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
-            //metadata.path == "userImages/\(userid!).jpeg"
             let imagename = "\(userid!).jpeg"
         
             storageRef = storageRef.child("userImages").child(imagename)
             storageRef.putData(data!, metadata: metadata, completion: { (meta, error) in
+                
                 if error == nil{
-                    print(meta)
+                    
+                    self.storageRef.downloadURL { (url, error) in
+                        
+                        self.currentUserInstance.imageURL = url?.absoluteString
+                        
+                        let dict = ["imageURL": url?.absoluteString]
+                        self.databaseRef.child("User").child(userid!).updateChildValues(dict)
+                        completion(url)
+                    }
                 }
             })
+        
     }
     
     func getUserProfilePhoto(completion : @escaping (UIImage) -> Void){
         
             let userid = Auth.auth().currentUser?.uid
-//            let imagename = "\(userid!).jpeg"
-//            storageRef = storageRef?.child(imagename)
-            storageRef?.child("userImages").child("\(userid!).jpeg").getData(maxSize: 1 * 2000 * 2000, completion: { (data, error) in
+            let imagename = "\(userid!).jpeg"
+            storageRef = storageRef?.child(imagename)
+            storageRef?.child("userImages").child("\(userid!).jpeg").getData(maxSize: 1 * 200 * 200, completion: { (data, error) in
                 
                 if error == nil{
                     let image = UIImage(data: data!)
-                    print(image)
                     completion(image!)
                 }
                 else{

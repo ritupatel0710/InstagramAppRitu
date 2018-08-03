@@ -19,17 +19,19 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInSignUpModelObj = SignInSignUpModel()
+        navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func signUpClick(_ sender: UIButton) {
         signInSignUpModelObj.signUp(fullname: fullNameTF.text!, email: emailTF.text!, username: usernameTF.text!, password: passwordTF.text!) { (error) in
             
             if error == nil{
-                self.performSegue(withIdentifier: "SignInViewController", sender: nil)
-                TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successful Sign Up", type: .success, duration: 2.0)
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "SignInViewController", sender: self)
+                    TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successful Sign Up", type: .success, duration: 2.0)
+                }
             }else{
-                
-                TWMessageBarManager.sharedInstance().showMessage(withTitle: "ERROR!", description: error.localizedDescription, type: .error, duration: 2.0)
+                TWMessageBarManager.sharedInstance().showMessage(withTitle: "ERROR!", description: error?.localizedDescription, type: .error, duration: 2.0)
             }
         }
     }

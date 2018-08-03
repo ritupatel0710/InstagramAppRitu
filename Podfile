@@ -9,6 +9,7 @@ target 'InstagramAppRitu' do
   pod 'TWMessageBarManager'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'SDWebImage'
   # Pods for InstagramAppRitu
 
 end

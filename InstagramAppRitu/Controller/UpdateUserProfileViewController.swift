@@ -18,16 +18,15 @@ class UpdateUserProfileViewController: UIViewController {
     
     @IBOutlet weak var usernameTF: UITextField!
     
-    @IBOutlet weak var passwordTF: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         signInSignOutModelObj = SignInSignUpModel()
+        navigationController?.isNavigationBarHidden = true
         editUserData()
     }
 
     @IBAction func updateClick(_ sender: UIButton) {
-        signInSignOutModelObj.updateProfile(fullname:fullname.text!,email:emailTF.text!,username:usernameTF.text!,password:passwordTF.text!)
+        signInSignOutModelObj.updateProfile(fullname:fullname.text!,email:emailTF.text!,username:usernameTF.text!)
         navigationController?.popViewController(animated: true)
     }
     
@@ -40,6 +39,5 @@ class UpdateUserProfileViewController: UIViewController {
         fullname.text = dict["fullname"]
         emailTF.text = dict["email"]
         usernameTF.text = dict["username"]
-        passwordTF.text = dict["password"]
     }
 }

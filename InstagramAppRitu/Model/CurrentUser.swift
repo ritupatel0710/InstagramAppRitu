@@ -29,5 +29,5 @@ class CurrentUser: NSObject{
     var fullname: String?
     var password: String?
     var username: String?
-    
+    var imageURL: String?
 }

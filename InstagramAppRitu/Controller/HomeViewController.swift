@@ -5,6 +5,7 @@ class HomeViewController: UIViewController {
     var signInSignUpModelObj : SignInSignUpModel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = true
         signInSignUpModelObj = SignInSignUpModel()
     }
     

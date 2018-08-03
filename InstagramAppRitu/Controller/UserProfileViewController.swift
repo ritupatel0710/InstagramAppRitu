@@ -9,37 +9,40 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import SDWebImage
 
 class UserProfileViewController: UIViewController {
 
     @IBOutlet weak var profilePhoto: UIImageView!
     
     var signInSignUpModelObj : SignInSignUpModel!
-    
     let imagepicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signInSignUpModelObj = SignInSignUpModel()
         navigationController?.isNavigationBarHidden = true
+        signInSignUpModelObj = SignInSignUpModel()
+        print(CurrentUser.sharedInstance.email)
+        print(CurrentUser.sharedInstance.imageURL)
         getProfilePhoto()
     }
     
     @IBAction func settingsClick(_ sender: UIBarButtonItem) {
         
     }
+    
     func getProfilePhoto(){
-        signInSignUpModelObj.getUserProfilePhoto { (img) in
-            self.profilePhoto.image = img
+        if let imgURL = CurrentUser.sharedInstance.imageURL{
+            profilePhoto.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "launch"))
         }
     }
     
-    
+    func uploadPhoto(img:UIImage){
+        
+    }
 }
 
 extension UserProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
-    
-    
     
     @IBAction func imgButtonClick(_ sender: UIButton) {
         imagepicker.delegate = self
@@ -53,9 +56,14 @@ extension UserProfileViewController: UINavigationControllerDelegate, UIImagePick
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        
         if let img = info[UIImagePickerControllerOriginalImage] as? UIImage{
             profilePhoto.image = img
-            signInSignUpModelObj.uploadimageintoFirebase(img:profilePhoto.image!)
+            signInSignUpModelObj.uploadimageintoFirebase(img) { (url) in
+                
+                self.profilePhoto.sd_setImage(with: url, placeholderImage: UIImage(named: "launch"))
+            }
+            
         }
         imagepicker.dismiss(animated: true, completion: nil)
     }

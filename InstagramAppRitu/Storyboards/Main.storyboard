@@ -176,7 +176,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signUpClick:" destination="RYj-Cc-wdV" eventType="touchUpInside" id="TeW-0i-rNQ"/>
-                                    <segue destination="paw-2i-YLj" kind="show" id="4SL-Ps-nXO"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instagram" translatesAutoresizingMaskIntoConstraints="NO" id="nWo-iY-3eD">
@@ -206,7 +205,7 @@
                                         <connections>
                                             <action selector="signInClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FLd-H6-T93"/>
                                             <action selector="signInClick:" destination="RYj-Cc-wdV" eventType="touchUpInside" id="FXF-L5-6ia"/>
-                                            <segue destination="paw-2i-YLj" kind="show" id="oWw-xD-3oJ"/>
+                                            <segue destination="paw-2i-YLj" kind="show" id="TIM-Ps-xIf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -238,6 +237,7 @@
                         <outlet property="fullNameTF" destination="ZGY-jd-nYZ" id="VBQ-7z-nMr"/>
                         <outlet property="passwordTF" destination="rqN-fT-5Bn" id="Ssy-VN-dl3"/>
                         <outlet property="usernameTF" destination="Vov-pB-kJr" id="fER-0e-lih"/>
+                        <segue destination="paw-2i-YLj" kind="show" identifier="SignInViewController" id="zbs-Go-cte"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B5I-19-Yx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -285,7 +285,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signInClick:" destination="paw-2i-YLj" eventType="touchUpInside" id="ySa-Le-ffK"/>
-                                    <segue destination="n47-Ic-0Yu" kind="show" id="ky3-aN-mbB"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instagram" translatesAutoresizingMaskIntoConstraints="NO" id="4d0-Ya-rF0">
@@ -399,6 +398,7 @@
                     <connections>
                         <outlet property="emailTF" destination="FwY-UD-TmN" id="XBD-Gf-2hl"/>
                         <outlet property="passwordTF" destination="Gbu-rK-UzY" id="68m-qW-XtE"/>
+                        <segue destination="n47-Ic-0Yu" kind="show" identifier="TabBarController" id="B6Y-0J-WE5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KmT-f6-xHI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -572,6 +572,6 @@
         <image name="instagram" width="100" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hTK-fn-iex"/>
+        <segue reference="zbs-Go-cte"/>
     </inferredMetricsTieBreakers>
 </document>

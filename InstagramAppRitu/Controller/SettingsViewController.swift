@@ -8,6 +8,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //navigationController?.isNavigationBarHidden = true
         //tblView.tableFooterView = view
     }
     
@@ -16,9 +17,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell")
         
         switch indexPath.row {
+    
         case 0:
             cell?.textLabel?.text = "Update Password"
             let controller = storyboard?.instantiateViewController(withIdentifier: "UpdatePasswordViewController") as! UpdatePasswordViewController
@@ -26,6 +29,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         case 1:
             cell?.textLabel?.text = "Sign Out"
             navigationController?.popToRootViewController(animated: true)
+            
         default:
             break
         }
