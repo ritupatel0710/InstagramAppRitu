@@ -34,7 +34,9 @@ class SignInSignUpModel{
         
                 
                 
-                self.databaseRef.child("User").child((authResult?.user.uid)!).updateChildValues(dict)
+                self.databaseRef.child("User").child((authResult?.user.uid)!).setValue(dict, withCompletionBlock: { (error, databaseReference) in
+                    
+                })//updateChildValues(dict)
                 //If error is Nil then it should allow to sign-up User and Perform segue to Sign-In(In viewcontroller).
                 completion(error)
             }
