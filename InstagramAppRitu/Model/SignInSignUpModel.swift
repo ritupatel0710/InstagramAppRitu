@@ -18,21 +18,19 @@ class SignInSignUpModel{
     var databaseRef: DatabaseReference!
     var currentUserInstance = CurrentUser.sharedInstance
     var storageRef : StorageReference!
-    var postInstance : Posts!
     
     init(){
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()
-        postInstance = Posts()
     }
     
-    func signUp(fullname: String, email: String, username: String, password: String,completion : @escaping (Error?) -> Void){
+    func signUp(fullname: String, email: String,password: String,completion : @escaping (Error?) -> Void){
         
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             if let err = error{
                 completion(err)
             }else{
-                let dict = ["fullName":fullname,"email":email,"username":username,"password":password]
+                let dict = ["fullName":fullname,"email":email,"password":password]
                 self.databaseRef.child("User").child((authResult?.user.uid)!).setValue(dict, withCompletionBlock: { (error, databaseReference) in
                 })
                 //If error is Nil then it should allow to sign-up User and Perform segue to Sign-In(In viewcontroller).
@@ -55,7 +53,6 @@ class SignInSignUpModel{
                     if let userSnapshot = snapshot.value as? Dictionary<String, Any>{
                         self.currentUserInstance.userId = userid
                         self.currentUserInstance.fullname = userSnapshot["fullName"] as? String
-                        self.currentUserInstance.username = userSnapshot["username"] as? String
                         self.currentUserInstance.imageURL = userSnapshot["imageURL"] as? String
                     }
                 })
@@ -83,7 +80,6 @@ class SignInSignUpModel{
             
             currentUserInstance.email = nil
             currentUserInstance.fullname = nil
-            currentUserInstance.username = nil
             currentUserInstance.password = nil
             try Auth.auth().signOut()
             
@@ -99,11 +95,10 @@ class SignInSignUpModel{
         }
     }
     
-    func updateProfile(fullname:String, email:String, username: String){
+    func updateProfile(fullname:String, email:String){
         
         self.currentUserInstance.email = email
         self.currentUserInstance.fullname = fullname
-        self.currentUserInstance.username = username
         
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
         
@@ -113,7 +108,7 @@ class SignInSignUpModel{
             }else{
                 let userid = Auth.auth().currentUser?.uid
                 //CurrentUser.sharedInstance.
-                let dict = ["fullName":fullname,"email":email,"username":username]
+                let dict = ["fullName":fullname,"email":email]
                 self.databaseRef.child("User").child(userid!).updateChildValues(dict)
                 TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successful Update Profile", type: .success, duration: 5.0)
             }
@@ -126,7 +121,7 @@ class SignInSignUpModel{
         let instance = CurrentUser.sharedInstance
         print(instance.email)
         print(instance.email)
-        let dict : Dictionary<String, String> = ["fullname":instance.fullname!,"email":instance.email,"username":instance.username!]
+        let dict : Dictionary<String, String> = ["fullname":instance.fullname!,"email":instance.email]
         return dict
 
     }
@@ -183,10 +178,11 @@ class SignInSignUpModel{
         let dict : Dictionary<String,Any> = ["userId":userid,"postDescription":caption,"timestamp":timestamp]
         
         self.databaseRef.child("Posts").child(key).setValue(dict, withCompletionBlock: { (error, databaseReference) in
-            
+            self.saveimageintoStorage(img,key)
+            self.setpostidInUserTable(key)
         })
-        setpostidInUser(key)
-        saveimageintoStorage(img,key)
+        
+        
     }
     
     func saveimageintoStorage(_ img: UIImage, _ key: String){
@@ -195,52 +191,93 @@ class SignInSignUpModel{
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         let imagename = "\(key).jpeg"
-        //let dict = ["imageURL" : ]
+        
         storageRef.child("postImages").child(imagename).putData(data!, metadata: metadata, completion: { (meta, error) in
+            if error == nil{
+                self.storageRef.child("postImages").child(imagename).downloadURL { (url, error) in
+                    let dict = ["imageURL": url?.absoluteString]
+                    self.databaseRef.child("Posts").child(key).updateChildValues(dict)
+                }
+            }
             
         })
-        storageRef.downloadURL { (url, error) in
-            
-            self.postInstance.imageURL = url?.absoluteString
-            
-            let dict = ["imageURL": url?.absoluteString]
-            self.databaseRef.child("Posts").child(key).updateChildValues(dict)
-        }
+        
     }
     
-    func setpostidInUser(_ postId : String){
+    func setpostidInUserTable(_ postId : String){
         let userId = Auth.auth().currentUser?.uid
         let dict = [postId:"postId"]
         databaseRef.child("User").child(userId!).child("posts").updateChildValues(dict)
     }
     
-    func getUsersPost(competion: @escaping (Array<Dictionary<String,Any>>) -> () ){
-        let userId = Auth.auth().currentUser?.uid
-        //let postidKey = databaseRef.child("User").child(userId!).child("posts")
+//    func getUsersPost(competion: @escaping (Array<Posts>) -> () ){
+//        
+//        let userId = Auth.auth().currentUser?.uid
+//        
+//        databaseRef.child("User").child(userId!).child("posts").observeSingleEvent(of: .value) { (snapShot) in
+//            
+//            for childSnap in  snapShot.children.allObjects {
+//                
+//                let snap = childSnap as! DataSnapshot
+//                let postidKey = snap.key
+//                var postArray = Array<Posts>()
+//            
+//                        self.databaseRef.child("Posts").child(postidKey).observeSingleEvent(of: .value, with: { (snapshot) in
+//                
+//                            if let postSnapshot = snapshot.value as? Dictionary<String, Any>{
+//
+//                                let post = Posts(postidKey,postSnapshot["userId"] as! String,postSnapshot["postDescription"] as! String,postSnapshot["timestamp"] as! Double,postSnapshot["imageURL"] as! String, <#User#>)
+//                                
+//                                postArray.append(post)
+//                            }
+//                            competion(postArray)
+//                        })
+//            }
+//        }
+//    }
+    
+    func getAllUsersPosts(completion: @escaping (Array<Posts>)->()) {
         
-        databaseRef.child("User").child(userId!).child("posts").observeSingleEvent(of: .value) { (snapShot) in
-            for childSnap in  snapShot.children.allObjects {
-                let snap = childSnap as! DataSnapshot
-                let postidKey = snap.key
-                var postArray = Array<Dictionary<String,Any>>()
-            
-                        self.databaseRef.child("Posts").child(postidKey).observeSingleEvent(of: .value, with: { (snapshot) in
-                            print(snapshot)
-                            if let postSnapshot = snapshot.value as? Dictionary<String, Any>{
-                                self.postInstance.userId = postSnapshot["userId"] as! String
-                                self.postInstance.postDescription = postSnapshot["postDescription"] as! String
-                                self.postInstance.timestamp = postSnapshot["timestamp"] as! Double
-                                //self.postInstance.imageURL = postSnapshot["imageURL"]
-                                postArray.append(postSnapshot)
-                                
-                            }
-                            competion(postArray)
-                        })
+        databaseRef.child("Posts").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? Dictionary<String,Any> else {
+                completion([])
+                return
+            }
+            var postArr : Array<Posts> = []
+            for item in value {
+                
+                if let post = item.value as? Dictionary<String,Any> {
+                
+                    self.getUser(userID: post["userId"] as! String, completion: { (user) in
+                        
+                        print(user.imageURL)
+                        
+                        let objPost = Posts(item.key, post["userId"] as! String,post["postDescription"] as! String,post["timestamp"] as! Double, post["imageURL"] as! String, user)
+                        
+                        postArr.append(objPost)
+                        //postArr.sort(by: {$0.timestamp > $1.timestamp})
+                        completion(postArr)
+                    })
+                }
             }
         }
-       
-
+    }
+    
+    func getUser(userID: String, completion:@escaping (User)->()){
         
-        
+        self.databaseRef.child("User").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let postSnapshot = snapshot.value as? Dictionary<String, Any>{
+                
+                if let imageurl = postSnapshot["imageURL"]{
+                    
+                    let user = User(userId: userID, email: postSnapshot["email"]! as! String, fullname: postSnapshot["fullName"]! as! String, password: postSnapshot["password"]! as! String, imageURL: postSnapshot["imageURL"]! as! String, postId: nil)
+                    completion(user)
+                }
+            }
+        })
     }
 }
+//
+//let post = Posts(snapshot.key, item["userId"] as! String,item["postDescription"] as! String,item["timestamp"] as! Double,item["imageURL"] as! String)
+//postArray.append(post)
