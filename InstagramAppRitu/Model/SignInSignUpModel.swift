@@ -359,9 +359,15 @@ class SignInSignUpModel{
                     //item.key is friendId
                     self.databaseRef.child("User").child(item.key).observeSingleEvent(of: .value, with: { (snapshot) in
                         if let friendSnapshot = snapshot.value as? Dictionary<String,Any>{
-                               let user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: friendSnapshot["imageURL"]! as! String, postId: nil)
+                            var user : User!
+                            if let img = friendSnapshot["imageURL"]{
+                                user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: friendSnapshot["imageURL"]! as! String, postId: nil)
+                            }else{
+                                user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: nil, postId: nil)
+                            }
                             arrFriend.append(user)
                             completion(arrFriend)
+                            
                         }
                     })
                 }
@@ -370,23 +376,3 @@ class SignInSignUpModel{
     }
 }
 
-/*
- func getUsersExceptFriends(completion : @escaping (Array<String>?)->()){
- 
- let userid = Auth.auth().currentUser?.uid
- var arrNotBeingDisplayedFrnd = Array<String>()
- self.databaseRef.child("User").child(userid!).child("friends").observeSingleEvent(of: .value) { (snapshot) in
- print(snapshot)
- if let snap = snapshot.value as? Dictionary<String,Any>{
- for i in snap{
- print(i.key)
- arrNotBeingDisplayedFrnd.append(i.key)
- }
- completion(arrNotBeingDisplayedFrnd)
- }else{
- completion(nil)
- }
- 
- }
- }
- */

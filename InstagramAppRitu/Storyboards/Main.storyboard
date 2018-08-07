@@ -233,6 +233,14 @@
                                     <segue destination="fwj-3E-wmr" kind="show" id="Ogw-4I-WBz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hu6-np-hC5">
+                                <rect key="frame" x="157" y="474" width="47" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="google"/>
+                                <connections>
+                                    <action selector="google:" destination="paw-2i-YLj" eventType="touchUpInside" id="DAH-of-zgy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

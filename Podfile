@@ -10,6 +10,7 @@ target 'InstagramAppRitu' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'SDWebImage'
+  pod 'GoogleSignIn'
   # Pods for InstagramAppRitu
 
 end
