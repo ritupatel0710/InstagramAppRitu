@@ -33,14 +33,6 @@
                                     <action selector="galleryOrCameraClick:" destination="WyO-hd-qP0" eventType="touchUpInside" id="ei0-ao-0U5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15w-xz-CXo">
-                                <rect key="frame" x="318" y="39" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="doneClick:" destination="WyO-hd-qP0" eventType="touchUpInside" id="IZx-M6-ha8"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write a caption..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZXJ-3B-mXU">
                                 <rect key="frame" x="28" y="436" width="322" height="144"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,21 +48,20 @@
                                     <action selector="galleryOrCameraClick:" destination="WyO-hd-qP0" eventType="touchUpInside" id="3mk-cs-7EY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15w-xz-CXo">
+                                <rect key="frame" x="169" y="588" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="doneClick:" destination="WyO-hd-qP0" eventType="touchUpInside" id="IZx-M6-ha8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="hM2-Wf-OL6"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rkg-nZ-hXS">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="iez-eb-VVK">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tG2-FH-Qxa">
-                                <rect key="frame" x="276" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="rkg-nZ-hXS"/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="postImage" destination="gbh-D3-iwe" id="6gE-e9-jmM"/>
                         <outlet property="textView" destination="ZXJ-3B-mXU" id="lP6-ub-V8R"/>
@@ -80,11 +71,11 @@
             </objects>
             <point key="canvasLocation" x="992.79999999999995" y="142.57871064467767"/>
         </scene>
-        <!--Posts-->
+        <!--Navigation Controller-->
         <scene sceneID="VjK-lG-Yzn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="A42-ZH-CRA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Posts" id="AG4-Np-9Ct"/>
+                    <tabBarItem key="tabBarItem" title="" image="Posts" id="AG4-Np-9Ct"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BP9-mq-tbP">
@@ -101,4 +92,7 @@
             <point key="canvasLocation" x="53.600000000000001" y="142.57871064467767"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Posts" width="50" height="50"/>
+    </resources>
 </document>

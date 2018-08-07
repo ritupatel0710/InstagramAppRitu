@@ -20,7 +20,5 @@ class UpdatePasswordViewController: UIViewController {
 
     @IBAction func updatePassword(_ sender: UIButton) {
         signinSignUpModelObj.updatePassword(pwd: updatePasswordTF.text!)
-//        let controller = storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//        navigationController?.popToViewController(controller, animated: true)
     }
 }

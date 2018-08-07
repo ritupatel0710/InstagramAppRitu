@@ -6,32 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InstagramAppRitu/Model/SignInSignUpModel.swift"
-            timestampString = "555217629.049467"
+            timestampString = "555310954.269652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "uploadimageintoFirebase(_:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InstagramAppRitu/Model/SignInSignUpModel.swift"
-            timestampString = "555217629.049664"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "uploadimageintoFirebase(_:completion:)"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "getAllUserList(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

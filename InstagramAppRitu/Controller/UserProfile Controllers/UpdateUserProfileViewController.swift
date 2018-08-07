@@ -26,7 +26,7 @@ class UpdateUserProfileViewController: UIViewController {
     }
 
     @IBAction func updateClick(_ sender: UIButton) {
-        signInSignOutModelObj.updateProfile(fullname:fullname.text!,email:emailTF.text!,username:usernameTF.text!)
+        signInSignOutModelObj.updateProfile(fullname:fullname.text!,email:emailTF.text!)
         navigationController?.popViewController(animated: true)
     }
     
@@ -38,6 +38,5 @@ class UpdateUserProfileViewController: UIViewController {
     func setUserProfileData(dict:Dictionary<String,String>){
         fullname.text = dict["fullname"]
         emailTF.text = dict["email"]
-        usernameTF.text = dict["username"]
     }
 }

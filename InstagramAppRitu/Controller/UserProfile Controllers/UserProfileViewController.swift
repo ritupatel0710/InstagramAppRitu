@@ -20,6 +20,7 @@ class UserProfileViewController: UIViewController {
     var signInSignUpModelObj : SignInSignUpModel!
     let imagepicker = UIImagePickerController()
     var postArr = Array<Posts>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationController?.isNavigationBarHidden = true
@@ -30,9 +31,7 @@ class UserProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        DispatchQueue.global().async {
-            //self.getCurrentUserPosts()
-        }
+        getCurrentUserPosts()
     }
     
     @IBAction func settingsClick(_ sender: UIBarButtonItem) {
@@ -49,14 +48,14 @@ class UserProfileViewController: UIViewController {
         
     }
     
-//    func getCurrentUserPosts(){
-//        signInSignUpModelObj.getUsersPost { (arrPosts) in
-//            self.postArr = arrPosts
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadData()
-//            }
-//        }
-//    }
+    func getCurrentUserPosts(){
+        signInSignUpModelObj.getUserPost { (arrPosts) in
+            self.postArr = arrPosts
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 extension UserProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate{
@@ -66,8 +65,11 @@ extension UserProfileViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
+        
         cell.imageView.sd_setImage(with: URL(string: postArr[indexPath.row].imageURL!))
+        
         return cell
     }
 }

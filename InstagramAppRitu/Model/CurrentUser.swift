@@ -9,25 +9,13 @@
 import Foundation
 class CurrentUser: NSObject{
     
-    struct Static {
-        static var instance: CurrentUser?
-    }
-    
-    class var sharedInstance: CurrentUser {
-        if Static.instance == nil
-        {
-            Static.instance = CurrentUser()
-        }
-        
-        return Static.instance!
-    }
-    
     private override init() {}
+    static let sharedInstance = CurrentUser()
     
     var userId: String!
     var email: String!
     var fullname: String?
     var password: String?
-    var username: String?
     var imageURL: String?
+    var postId: String?
 }

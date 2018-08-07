@@ -16,7 +16,8 @@ class Posts: NSObject{
     var imageURL: String?
     var userObject : User?
     
-    init(_ postId: String, _ userId:String, _ postDescription: String, _ timestamp: Double, _ imageURL: String, _ userObject: User){
+    init(_ postId: String, _ userId:String, _ postDescription: String, _ timestamp: Double, _ imageURL: String, _ userObject: User?){
+        
         self.postId = postId
         self.userId = userId
         self.postDescription = postDescription

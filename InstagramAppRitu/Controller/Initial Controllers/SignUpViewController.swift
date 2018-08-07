@@ -10,7 +10,7 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var emailTF: UITextField!
     
-    @IBOutlet weak var usernameTF: UITextField!
+    @IBOutlet weak var confirmPwdTF: UITextField!
     
     @IBOutlet weak var passwordTF: UITextField!
     
@@ -19,11 +19,23 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInSignUpModelObj = SignInSignUpModel()
-        navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func signUpClick(_ sender: UIButton) {
-        signInSignUpModelObj.signUp(fullname: fullNameTF.text!, email: emailTF.text!, username: usernameTF.text!, password: passwordTF.text!) { (error) in
+        if confirmPwdTF.text != passwordTF.text{
+            TWMessageBarManager.sharedInstance().showMessage(withTitle: "Oops!", description: "Passwords doesn't match", type: .success, duration: 2.0)
+        }else{
+            signUp()
+        }
+    }
+    
+    
+    @IBAction func signInClick(_ sender: UIButton) {
+        
+    }
+    
+    func signUp(){
+        signInSignUpModelObj.signUp(fullname: fullNameTF.text!, email: emailTF.text!,password: passwordTF.text!) { (error) in
             
             if error == nil{
                 DispatchQueue.main.async {
@@ -34,10 +46,5 @@ class SignUpViewController: UIViewController {
                 TWMessageBarManager.sharedInstance().showMessage(withTitle: "ERROR!", description: error?.localizedDescription, type: .error, duration: 2.0)
             }
         }
-    }
-    
-    
-    @IBAction func signInClick(_ sender: UIButton) {
-        
     }
 }

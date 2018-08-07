@@ -199,7 +199,6 @@ class SignInSignUpModel{
                     self.databaseRef.child("Posts").child(key).updateChildValues(dict)
                 }
             }
-            
         })
         
     }
@@ -210,31 +209,31 @@ class SignInSignUpModel{
         databaseRef.child("User").child(userId!).child("posts").updateChildValues(dict)
     }
     
-//    func getUsersPost(competion: @escaping (Array<Posts>) -> () ){
-//        
-//        let userId = Auth.auth().currentUser?.uid
-//        
-//        databaseRef.child("User").child(userId!).child("posts").observeSingleEvent(of: .value) { (snapShot) in
-//            
-//            for childSnap in  snapShot.children.allObjects {
-//                
-//                let snap = childSnap as! DataSnapshot
-//                let postidKey = snap.key
-//                var postArray = Array<Posts>()
-//            
-//                        self.databaseRef.child("Posts").child(postidKey).observeSingleEvent(of: .value, with: { (snapshot) in
-//                
-//                            if let postSnapshot = snapshot.value as? Dictionary<String, Any>{
-//
-//                                let post = Posts(postidKey,postSnapshot["userId"] as! String,postSnapshot["postDescription"] as! String,postSnapshot["timestamp"] as! Double,postSnapshot["imageURL"] as! String, <#User#>)
-//                                
-//                                postArray.append(post)
-//                            }
-//                            competion(postArray)
-//                        })
-//            }
-//        }
-//    }
+    func getUserPost(competion: @escaping (Array<Posts>) -> () ){
+        
+        let userId = Auth.auth().currentUser?.uid
+        
+        databaseRef.child("User").child(userId!).child("posts").observeSingleEvent(of: .value) { (snapShot) in
+            
+            for childSnap in  snapShot.children.allObjects {
+                
+                let snap = childSnap as! DataSnapshot
+                let postidKey = snap.key
+                var postArray = Array<Posts>()
+            
+                        self.databaseRef.child("Posts").child(postidKey).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                            if let postSnapshot = snapshot.value as? Dictionary<String, Any>{
+
+                                let post = Posts(postidKey,postSnapshot["userId"] as! String,postSnapshot["postDescription"] as! String,postSnapshot["timestamp"] as! Double,postSnapshot["imageURL"] as! String, nil)
+                                
+                                postArray.append(post)
+                            }
+                            competion(postArray)
+                        })
+            }
+        }
+    }
     
     func getAllUsersPosts(completion: @escaping (Array<Posts>)->()) {
         
@@ -244,18 +243,19 @@ class SignInSignUpModel{
                 return
             }
             var postArr : Array<Posts> = []
+            
             for item in value {
                 
                 if let post = item.value as? Dictionary<String,Any> {
                 
                     self.getUser(userID: post["userId"] as! String, completion: { (user) in
-                        
-                        print(user.imageURL)
-                        
+                    
                         let objPost = Posts(item.key, post["userId"] as! String,post["postDescription"] as! String,post["timestamp"] as! Double, post["imageURL"] as! String, user)
                         
                         postArr.append(objPost)
-                        //postArr.sort(by: {$0.timestamp > $1.timestamp})
+                        
+                        postArr.sort(by: {Double($0.timestamp!) > Double($1.timestamp!)})
+                        
                         completion(postArr)
                     })
                 }
@@ -267,17 +267,126 @@ class SignInSignUpModel{
         
         self.databaseRef.child("User").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             
-            if let postSnapshot = snapshot.value as? Dictionary<String, Any>{
+            if let userSnapshot = snapshot.value as? Dictionary<String, Any>{
                 
-                if let imageurl = postSnapshot["imageURL"]{
+                if let imageurl = userSnapshot["imageURL"]{
                     
-                    let user = User(userId: userID, email: postSnapshot["email"]! as! String, fullname: postSnapshot["fullName"]! as! String, password: postSnapshot["password"]! as! String, imageURL: postSnapshot["imageURL"]! as! String, postId: nil)
+                    let user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil)
                     completion(user)
                 }
             }
         })
     }
+    
+    func getAllUserList(completion :@escaping (Array<User?>) -> ()){
+        
+        let userid = Auth.auth().currentUser?.uid
+        var arrUser = Array<User>()
+        
+        self.databaseRef.child("User").observeSingleEvent(of: .value) { (snapshot) in
+            
+            if let snapUser = snapshot.value as? Dictionary<String,Any>{
+                
+                for item in snapUser{
+                    
+                    self.getUsersExceptFriends(completion: { (arrFrnds) in
+                    print(!(arrFrnds?.contains(item.key))!)
+                    //print(arrFrnds)
+                        if item.key != userid && !(arrFrnds?.contains(item.key))!{//
+                        
+                        if let eachUser = item.value as? Dictionary<String,Any>{
+                            
+                            if let imgurl = eachUser["imageURL"]{
+                                
+                                let userObj = User(userId: item.key, email: eachUser["email"]! as! String, fullname: eachUser["fullName"]! as! String, password: nil, imageURL: imgurl as? String, postId: nil)
+                                        arrUser.append(userObj)
+                                        //print(arrUser)
+                                        
+                            }
+                            else{
+                                let userObj = User(userId: item.key, email: eachUser["email"]! as! String, fullname: eachUser["fullName"]! as! String, password: nil, imageURL: nil, postId: nil)
+                                arrUser.append(userObj)
+                                
+                            }
+                            completion(arrUser)
+                            }
+                        }
+                        })
+                    
+                }
+            }
+        }
+    }
+    func getUsersExceptFriends(completion : @escaping (Array<String>?)->()){
+            
+        let userid = Auth.auth().currentUser?.uid
+        var arrNotBeingDisplayedFrnd = Array<String>()
+        self.databaseRef.child("User").child(userid!).observeSingleEvent(of: .value) { (snapshot) in
+            
+        //print(snapshot)
+        if let snap = snapshot.value as? Dictionary<String,Any>{
+            if let snapFriend = snap["friends"] as? Dictionary<String,Any>{
+               for i in snapFriend{
+                    //print(i.key)
+                    arrNotBeingDisplayedFrnd.append(i.key)
+               }
+                print(arrNotBeingDisplayedFrnd)
+            }
+            completion(arrNotBeingDisplayedFrnd)
+        }else{
+            completion(nil)
+        }
+            
+    }
 }
-//
-//let post = Posts(snapshot.key, item["userId"] as! String,item["postDescription"] as! String,item["timestamp"] as! Double,item["imageURL"] as! String)
-//postArray.append(post)
+    
+    func addUserAsFriend(_ addUserAsFriend: String){
+        let userid = Auth.auth().currentUser?.uid
+        let dict = [addUserAsFriend : "friendId"]
+        databaseRef.child("User").child(userid!).child("friends").updateChildValues(dict)
+    }
+    
+    func getMyAllFriends(completion :@escaping (Array<User?>) ->()){
+        
+        let userId = Auth.auth().currentUser?.uid
+        
+        databaseRef.child("User").child(userId!).child("friends").observeSingleEvent(of: .value) { (snapshot) in
+            
+            var arrFriend = Array<User>()
+            
+            if let userSnapshot = snapshot.value as? Dictionary<String,Any>{
+                for item in userSnapshot{
+                    //item.key is friendId
+                    self.databaseRef.child("User").child(item.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let friendSnapshot = snapshot.value as? Dictionary<String,Any>{
+                               let user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: friendSnapshot["imageURL"]! as! String, postId: nil)
+                            arrFriend.append(user)
+                            completion(arrFriend)
+                        }
+                    })
+                }
+            }
+        }
+    }
+}
+
+/*
+ func getUsersExceptFriends(completion : @escaping (Array<String>?)->()){
+ 
+ let userid = Auth.auth().currentUser?.uid
+ var arrNotBeingDisplayedFrnd = Array<String>()
+ self.databaseRef.child("User").child(userid!).child("friends").observeSingleEvent(of: .value) { (snapshot) in
+ print(snapshot)
+ if let snap = snapshot.value as? Dictionary<String,Any>{
+ for i in snap{
+ print(i.key)
+ arrNotBeingDisplayedFrnd.append(i.key)
+ }
+ completion(arrNotBeingDisplayedFrnd)
+ }else{
+ completion(nil)
+ }
+ 
+ }
+ }
+ */

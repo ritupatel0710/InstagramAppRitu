@@ -14,7 +14,6 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInSignUpModelObj = SignInSignUpModel()
-        navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func signInClick(_ sender: UIButton) {

@@ -17,6 +17,7 @@ class UploadPostsViewController: UIViewController {
     var imagepicker : UIImagePickerController!
     
     var signinSignOutModelObj : SignInSignUpModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
@@ -27,7 +28,6 @@ class UploadPostsViewController: UIViewController {
     @IBAction func doneClick(_ sender: UIButton) {
         signinSignOutModelObj.uploadPost(postImage.image!, caption: textView.text!)
     }
-    
 }
 
 

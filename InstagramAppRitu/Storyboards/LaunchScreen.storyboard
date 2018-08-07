@@ -24,9 +24,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="QEH-40-cFa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3y8-c8-8z2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QEH-40-cFa" secondAttribute="bottom" id="6r8-52-nTt"/>
+                            <constraint firstItem="QEH-40-cFa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IbP-PP-Iex"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QEH-40-cFa" secondAttribute="trailing" id="VH7-ZC-r1j"/>
                             <constraint firstItem="QEH-40-cFa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="YLm-ke-51u"/>
+                            <constraint firstItem="QEH-40-cFa" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="s8L-Ez-2Wn"/>
+                            <constraint firstItem="QEH-40-cFa" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wPI-im-8uV"/>
                             <constraint firstItem="QEH-40-cFa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xv6-Za-9FG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -38,6 +42,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launch" width="444" height="794"/>
+        <image name="launch" width="187" height="384"/>
     </resources>
 </document>

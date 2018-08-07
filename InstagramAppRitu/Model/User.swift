@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User{
+class User: NSObject{
     var userId: String!
     var email: String!
     var fullname: String?
@@ -16,7 +16,7 @@ class User{
     var imageURL: String?
     var postId: String?
     
-    init(userId: String,email: String,fullname: String,password: String,imageURL: String,postId: String?){
+    init(userId: String,email: String,fullname: String,password: String?,imageURL: String?,postId: String?){
         
         self.userId = userId
         self.email = email
