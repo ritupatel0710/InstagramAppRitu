@@ -27,7 +27,11 @@ extension SettingsViewController : UITableViewDelegate, UITableViewDataSource{
         case 0:
             navigateToUpdatePasswordController()
         case 1:
+            
             popToRootController()
+            
+            
+            //navigationController?.popToRootViewController(animated: true)
         default:
             break
         }
@@ -39,13 +43,10 @@ extension SettingsViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func popToRootController(){
-        
         signinSignOutModelObj.signOut()
-        
         let mainStoreBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = mainStoreBoard.instantiateViewController(withIdentifier: "SignInViewController")
         UIApplication.shared.keyWindow?.rootViewController = controller
-        navigationController?.popToRootViewController(animated: true)
     }
     
     func configureCell(_ cell: UITableViewCell, _ indexPath: IndexPath){
