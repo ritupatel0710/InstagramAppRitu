@@ -3,6 +3,8 @@ import UIKit
 import FirebaseAuth
 import TWMessageBarManager
 import GoogleSignIn
+import FacebookCore
+import FacebookLogin
 
 class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
 
@@ -19,6 +21,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     
     // Google code start
     
+    
     @IBAction func google(_ sender: Any) {
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
@@ -33,11 +36,41 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
             let cred = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
             Auth.auth().signInAndRetrieveData(with: cred) { (authResult, error) in
                 if error == nil{
-                    print(authResult?.user.uid)
+                    let userId = authResult?.user.uid
+                    let email = authResult?.user.email
+                    let fullName = authResult?.user.displayName
+                    self.signInSignUpModelObj.signinwithGoogle(userId!, email!, fullName!)
+                    self.performSegue(withIdentifier: "TabBarController", sender: nil)
+                    //authResult?.user.
                 }
             }
         }
     }
+    @IBAction func signinFacebook(_ sender: UIButton) {
+        
+        let loginManager = LoginManager()
+        loginManager.logIn(readPermissions: [.publicProfile,.email], viewController: self) { (result) in
+            switch result{
+            case .success(grantedPermissions: _, declinedPermissions: _, token: _):
+                self.signinFirebase()
+                print("Sign in with FB")
+            case .failed: print("error")
+            case .cancelled: print("cancelled")
+            default:break
+                
+            }
+        }
+    }
+    
+    func signinFirebase(){
+        signInSignUpModelObj.signInFB()
+        self.performSegue(withIdentifier: "TabBarController", sender: nil)
+    }
+
+    /*
+     Save it to database
+     
+     */
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
     }

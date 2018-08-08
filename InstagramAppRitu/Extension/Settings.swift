@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import GoogleSignIn
+import FacebookLogin
+import FacebookCore
 
 extension SettingsViewController : UITableViewDelegate, UITableViewDataSource{
     
@@ -27,11 +30,7 @@ extension SettingsViewController : UITableViewDelegate, UITableViewDataSource{
         case 0:
             navigateToUpdatePasswordController()
         case 1:
-            
             popToRootController()
-            
-            
-            //navigationController?.popToRootViewController(animated: true)
         default:
             break
         }
@@ -43,6 +42,10 @@ extension SettingsViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func popToRootController(){
+        let loginManager = LoginManager()
+        loginManager.logOut()
+        GIDSignIn.sharedInstance().signOut()
+        //print(GIDSignIn.sharedInstance().currentUser.userID)
         signinSignOutModelObj.signOut()
         let mainStoreBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = mainStoreBoard.instantiateViewController(withIdentifier: "SignInViewController")

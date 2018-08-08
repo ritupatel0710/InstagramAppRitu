@@ -9,6 +9,7 @@ class SettingsViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tblView.tableFooterView = UIView()
         navigationController?.isNavigationBarHidden = true
     }
 }

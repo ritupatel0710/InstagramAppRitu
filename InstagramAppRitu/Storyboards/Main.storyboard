@@ -241,6 +241,14 @@
                                     <action selector="google:" destination="paw-2i-YLj" eventType="touchUpInside" id="DAH-of-zgy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irn-XV-Brx">
+                                <rect key="frame" x="157" y="529" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="FB"/>
+                                <connections>
+                                    <action selector="signinFacebook:" destination="paw-2i-YLj" eventType="touchUpInside" id="Zfj-gc-zrK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -366,7 +374,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="7GQ-ND-Q2g">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="n47-Ic-0Yu" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabbarController" automaticallyAdjustsScrollViewInsets="NO" id="n47-Ic-0Yu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="07X-QC-sXC">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -398,7 +406,7 @@
         <!--Home-->
         <scene sceneID="QXH-pl-K8d">
             <objects>
-                <viewControllerPlaceholder storyboardName="Home" id="g3S-P3-180" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="NavigationToSignIn" storyboardName="Home" id="g3S-P3-180" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Kkk-aQ-MSq"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ep2-Tb-Jd6" userLabel="First Responder" sceneMemberID="firstResponder"/>

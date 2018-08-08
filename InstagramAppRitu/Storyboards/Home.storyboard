@@ -37,8 +37,9 @@
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="25"/>
+                                                            <integer key="value" value="20"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="8ez-Ye-cM4">
@@ -142,12 +143,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2a6-8x-PEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5408.8000000000002" y="-109.29535232383809"/>
+            <point key="canvasLocation" x="-4428" y="-56"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eNu-1A-F0s">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eQq-uo-RBD" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationToSignIn" automaticallyAdjustsScrollViewInsets="NO" id="eQq-uo-RBD" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="home" id="sYY-C8-Dyn"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -162,7 +163,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Byq-8E-8cD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4508" y="194.75262368815595"/>
+            <point key="canvasLocation" x="-5337" y="-56"/>
         </scene>
     </scenes>
     <resources>

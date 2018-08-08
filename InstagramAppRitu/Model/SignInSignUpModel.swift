@@ -12,6 +12,9 @@ import TWMessageBarManager
 import FirebaseAuth
 import UIKit
 import FirebaseStorage
+import GoogleSignIn
+import FacebookCore
+import FBSDKCoreKit
 
 class SignInSignUpModel{
     
@@ -63,6 +66,15 @@ class SignInSignUpModel{
         }
     }
     
+    func signinwithGoogle(_ userId: String, _ email: String, _ fullName: String){
+        let dict = ["email": email, "fullName": fullName]
+        databaseRef.child("User").child(userId).setValue(dict) { (error, ref) in
+            //self.signInSignUpModelObj.signinwithGoogle(userId!, email!, fullName!)
+            //                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+            //                    self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
     func resetPassword(email: String){
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if let err = error{
@@ -78,9 +90,7 @@ class SignInSignUpModel{
     func signOut(){
         do{
             
-            currentUserInstance.email = nil
-            currentUserInstance.fullname = nil
-            currentUserInstance.password = nil
+            //GIDSignIn.sharedInstance().signOut()
             try Auth.auth().signOut()
             
         }catch{
@@ -117,11 +127,27 @@ class SignInSignUpModel{
     
     
     func getUserProfile() -> Dictionary<String, String>{
-        
-        let instance = CurrentUser.sharedInstance
-        print(instance.email)
-        print(instance.email)
-        let dict : Dictionary<String, String> = ["fullname":instance.fullname!,"email":instance.email]
+        var dict = Dictionary<String, String>()
+        if GIDSignIn.sharedInstance().currentUser != nil{
+            dict = ["fullname": GIDSignIn.sharedInstance().currentUser.profile.name, "email":GIDSignIn.sharedInstance().currentUser.profile.email]
+        }else if FBSDKAccessToken.current() != nil{
+            
+            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, name, email"])
+            let connection = FBSDKGraphRequestConnection()
+            
+            connection.add(graphRequest, completionHandler: { (connection, result, error) -> Void in
+                
+                let data = result as! [String : AnyObject]
+                
+                dict = ["fullname": (data["name"] as? String)!, "email": data["id"] as? String] as! [String : String]
+            })
+            connection.start()
+
+        }else{
+            let instance = CurrentUser.sharedInstance
+            dict = ["fullname":instance.fullname!,"email":instance.email]
+        }
+        print(dict)
         return dict
 
     }
@@ -372,6 +398,17 @@ class SignInSignUpModel{
                     })
                 }
             }
+        }
+    }
+    
+    func signInFB(){
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: (AccessToken.current?.authenticationToken)!)
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+            if let error = error {
+                return
+            }
+            print("Sign in firebase Auth")
         }
     }
 }
