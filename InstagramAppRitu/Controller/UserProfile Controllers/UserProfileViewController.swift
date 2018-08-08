@@ -17,6 +17,8 @@ class UserProfileViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var fullname: UILabel!
+    
     var signInSignUpModelObj : SignInSignUpModel!
     let imagepicker = UIImagePickerController()
     var postArr = Array<Posts>()
@@ -25,6 +27,8 @@ class UserProfileViewController: UIViewController {
         super.viewDidLoad()
         //navigationController?.isNavigationBarHidden = true
         self.navigationController?.isNavigationBarHidden = true
+        profilePhoto.layer.borderWidth = 2
+        profilePhoto.layer.borderColor = UIColor.gray.cgColor
         signInSignUpModelObj = SignInSignUpModel()
         getProfilePhoto()
     }

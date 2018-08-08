@@ -1,16 +1,16 @@
 //
-//  UserProfile.swift
+//  UpdateProfile.swift
 //  InstagramAppRitu
 //
-//  Created by Ritu Patel on 8/3/18.
+//  Created by Ritu Patel on 8/7/18.
 //  Copyright © 2018 Ritu Patel. All rights reserved.
 //
 
 import UIKit
 
-extension UserProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+extension UpdateUserProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
-    @IBAction func imgButtonClick(_ sender: UIButton) {
+    @IBAction func changePhotoClick(_ sender: Any) {
         imagepicker.delegate = self
         if imagepicker.sourceType == .camera{
             imagepicker.sourceType = .camera
@@ -24,7 +24,7 @@ extension UserProfileViewController: UINavigationControllerDelegate, UIImagePick
         
         if let img = info[UIImagePickerControllerOriginalImage] as? UIImage{
             profilePhoto.image = img
-            signInSignUpModelObj.uploadimageintoFirebase(img) { (url) in
+            signInSignOutModelObj.uploadimageintoFirebase(img) { (url) in
                 
                 self.profilePhoto.sd_setImage(with: url, placeholderImage: UIImage(named: "userProfilePhoto"))
             }
@@ -36,4 +36,3 @@ extension UserProfileViewController: UINavigationControllerDelegate, UIImagePick
         imagepicker.dismiss(animated: true, completion: nil)
     }
 }
-

@@ -44,26 +44,29 @@ class SignInSignUpModel{
     }
     
     func signIn(email:String, password: String,completion : @escaping (Error?) -> Void){
-        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-            let userid = Auth.auth().currentUser?.uid
-            if let err = error{
-                completion(err)
-            }else{
-                self.currentUserInstance.email = email
-                
-                self.databaseRef.child("User").child(userid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-                    if let userSnapshot = snapshot.value as? Dictionary<String, Any>{
-                        self.currentUserInstance.userId = userid
-                        self.currentUserInstance.fullname = userSnapshot["fullName"] as? String
-                        self.currentUserInstance.imageURL = userSnapshot["imageURL"] as? String
-                    }
-                })
+            //whichUser("Firebase")
         
-                //If error is Nil then it should allow to sign-in User and Perform segue to Home Controller(in ViewController).
-                completion(error)
-            }
+            Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
+                let userid = Auth.auth().currentUser?.uid
+                if let err = error{
+                    completion(err)
+                }else{
+                    
+                    self.currentUserInstance.email = email
+                    
+                    self.databaseRef.child("User").child(userid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        
+                        if let userSnapshot = snapshot.value as? Dictionary<String, Any>{
+                            self.currentUserInstance.userId = userid
+                            self.currentUserInstance.fullname = userSnapshot["fullName"] as? String
+                            self.currentUserInstance.imageURL = userSnapshot["imageURL"] as? String
+                        }
+                    })
+                    //If error is Nil then it should allow to sign-in User and Perform segue to Home Controller(in ViewController).
+                    completion(error)
+                
         }
+    }
     }
     
     func signinwithGoogle(_ userId: String, _ email: String, _ fullName: String){
@@ -105,7 +108,7 @@ class SignInSignUpModel{
         }
     }
     
-    func updateProfile(fullname:String, email:String){
+    func updateProfile(fullname:String, email:String, bio:String){
         
         self.currentUserInstance.email = email
         self.currentUserInstance.fullname = fullname
@@ -118,7 +121,7 @@ class SignInSignUpModel{
             }else{
                 let userid = Auth.auth().currentUser?.uid
                 //CurrentUser.sharedInstance.
-                let dict = ["fullName":fullname,"email":email]
+                let dict = ["fullName":fullname,"email":email, "bio":bio]
                 self.databaseRef.child("User").child(userid!).updateChildValues(dict)
                 TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successful Update Profile", type: .success, duration: 5.0)
             }
@@ -126,10 +129,13 @@ class SignInSignUpModel{
     }
     
     
-    func getUserProfile() -> Dictionary<String, String>{
+    func getUserProfile(completion : @escaping (Dictionary<String, String>) -> ()) {
         var dict = Dictionary<String, String>()
+        
+        
         if GIDSignIn.sharedInstance().currentUser != nil{
             dict = ["fullname": GIDSignIn.sharedInstance().currentUser.profile.name, "email":GIDSignIn.sharedInstance().currentUser.profile.email]
+            
         }else if FBSDKAccessToken.current() != nil{
             
             let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, name, email"])
@@ -147,8 +153,13 @@ class SignInSignUpModel{
             let instance = CurrentUser.sharedInstance
             dict = ["fullname":instance.fullname!,"email":instance.email]
         }
-        print(dict)
-        return dict
+        getUser(userID: currentUserInstance.userId) { (user) in
+            dict["imageURL"] = user.imageURL
+            dict["bio"] = user.bio
+            completion(dict)
+        }
+        //print(dict)
+        //return dict
 
     }
     
@@ -175,7 +186,6 @@ class SignInSignUpModel{
                     }
                 }
             })
-        
     }
     
     func getUserProfilePhoto(completion : @escaping (UIImage) -> Void){
@@ -294,10 +304,15 @@ class SignInSignUpModel{
         self.databaseRef.child("User").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let userSnapshot = snapshot.value as? Dictionary<String, Any>{
-                
+                let user : User!
                 if let imageurl = userSnapshot["imageURL"]{
-                    
-                    let user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil)
+                    if userSnapshot["bio"] != nil{
+                         user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil, bio:userSnapshot["bio"] as! String ?? "" as! String )
+                        
+                    }else{
+                         user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil, bio:nil )
+                        
+                    }
                     completion(user)
                 }
             }
@@ -324,13 +339,13 @@ class SignInSignUpModel{
                             
                             if let imgurl = eachUser["imageURL"]{
                                 
-                                let userObj = User(userId: item.key, email: eachUser["email"]! as! String, fullname: eachUser["fullName"]! as! String, password: nil, imageURL: imgurl as? String, postId: nil)
+                                let userObj = User(userId: item.key, email: eachUser["email"]! as! String, fullname: eachUser["fullName"]! as! String, password: nil, imageURL: imgurl as? String, postId: nil, bio: nil)
                                         arrUser.append(userObj)
                                         //print(arrUser)
                                         
                             }
                             else{
-                                let userObj = User(userId: item.key, email: eachUser["email"]! as! String, fullname: eachUser["fullName"]! as! String, password: nil, imageURL: nil, postId: nil)
+                                let userObj = User(userId: item.key, email: eachUser["email"]! as! String, fullname: eachUser["fullName"]! as! String, password: nil, imageURL: nil, postId: nil, bio: nil)
                                 arrUser.append(userObj)
                                 
                             }
@@ -387,9 +402,9 @@ class SignInSignUpModel{
                         if let friendSnapshot = snapshot.value as? Dictionary<String,Any>{
                             var user : User!
                             if let img = friendSnapshot["imageURL"]{
-                                user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: friendSnapshot["imageURL"]! as! String, postId: nil)
+                                user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: friendSnapshot["imageURL"]! as! String, postId: nil, bio: nil)
                             }else{
-                                user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: nil, postId: nil)
+                                user = User(userId: item.key, email: friendSnapshot["email"]! as! String, fullname: friendSnapshot["fullName"]! as! String, password: nil, imageURL: nil, postId: nil, bio: nil)
                             }
                             arrFriend.append(user)
                             completion(arrFriend)
@@ -410,6 +425,29 @@ class SignInSignUpModel{
             }
             print("Sign in firebase Auth")
         }
+    }
+    
+    func whichUser(_ string : String){
+        switch string{
+        case "Google":
+            setGoogleUserFirebase()
+        case "Facebook":
+            setFacebookUserFirebase()
+        default:
+            setFirebaseCurrentUser()
+        }
+    }
+    
+    func setGoogleUserFirebase(){
+        
+    }
+    
+    func setFacebookUserFirebase(){
+        
+    }
+    
+    func setFirebaseCurrentUser(){
+        
     }
 }
 

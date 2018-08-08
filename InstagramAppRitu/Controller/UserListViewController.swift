@@ -18,7 +18,7 @@ class UserListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tblView.tableFooterView = view
+        tblView.tableFooterView = UIView()// To remove extra cells from tableview
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,8 +32,6 @@ class UserListViewController: UIViewController {
             }
         }
     }
-    
-    
 }
 
 extension UserListViewController : UITableViewDataSource,UITableViewDelegate{
@@ -70,6 +68,7 @@ extension UserListViewController : UITableViewDataSource,UITableViewDelegate{
             sender?.setImage( UIImage(named:"friendAdded"), for: .normal)
             self.addUserAsFriend(useridForFriendReq!)
         }
+        
     }
     
     func addUserAsFriend(_ userIdFriend : String){

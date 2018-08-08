@@ -15,8 +15,9 @@ class User: NSObject{
     var password: String?
     var imageURL: String?
     var postId: String?
+    var bio: String?    //Not Sure Whether I will use it later or not, But created as I remember.
     
-    init(userId: String,email: String,fullname: String,password: String?,imageURL: String?,postId: String?){
+    init(userId: String,email: String,fullname: String,password: String?,imageURL: String?,postId: String?,bio: String?){
         
         self.userId = userId
         self.email = email
@@ -24,5 +25,6 @@ class User: NSObject{
         self.password = password
         self.imageURL = imageURL
         self.postId = postId
+        self.bio = bio
     }
 }
