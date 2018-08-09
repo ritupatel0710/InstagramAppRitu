@@ -5,7 +5,9 @@ import SDWebImage
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var tblView: UITableView!
-
+    
+    let defaults = UserDefaults.standard
+    
     var signInSignUpModelObj : SignInSignUpModel!
     var arrpostObj : Array<Posts> = []
     
@@ -14,6 +16,7 @@ class HomeViewController: UIViewController {
         //navigationController?.isNavigationBarHidden = true
         self.tblView.rowHeight = 580.0
         signInSignUpModelObj = SignInSignUpModel()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

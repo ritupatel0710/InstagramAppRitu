@@ -60,6 +60,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.commentClick.addTarget(self, action: #selector(commentClick(sender:)) , for: .touchUpInside)
         cell.likeClick.addTarget(self, action: #selector(likeClick(sender:)) , for: .touchUpInside)
         cell.noofLikesClick.addTarget(self, action: #selector(noofLikesClick(sender:)) , for: .touchUpInside)
+        
     }
     
     @objc func commentClick(sender: UIButton?){
@@ -74,6 +75,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         let userId = arrpostObj[(sender?.tag)!].userId
         
         sender?.isSelected = !(sender?.isSelected)!
+        UserDefaults.standard.set(sender?.isSelected, forKey: "isSaved")
         
         if let isLiked = sender?.isSelected{
             let postObj = arrpostObj[(sender?.tag)!]
@@ -85,6 +87,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 viewWillAppear(true)
             }
             else{
+                
                 viewWillAppear(true)
                 if postObj.noLikes! > 0{
                     

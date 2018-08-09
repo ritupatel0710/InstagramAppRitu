@@ -35,7 +35,10 @@ class HomeTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
+        likeClick.setImage(UIImage(named: "like"), for: .normal)
+        likeClick.setImage(UIImage(named: "likeFilled"), for: .selected)
+        likeClick.isSelected = UserDefaults.standard.bool(forKey: "isSaved")
         // Configure the view for the selected state
     }
 
