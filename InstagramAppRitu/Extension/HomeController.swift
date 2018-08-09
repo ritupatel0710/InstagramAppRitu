@@ -51,11 +51,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.numberOfLikesLabel.text = "400 Likes"
         
         cell.timestamp.text = postObj.timestamp?.timeElapsed
+        cell.numberOfLikesLabel.text = "\(postObj.noLikes!) Likes"
         
-        cell.commentClick.tag = indexPath.row
         cell.likeClick.tag = indexPath.row
+        cell.commentClick.tag = indexPath.row
         
         cell.commentClick.addTarget(self, action: #selector(commentClick(sender:)) , for: .touchUpInside)
+        cell.likeClick.addTarget(self, action: #selector(likeClick(sender:)) , for: .touchUpInside)
+        
     }
     
     @objc func commentClick(sender: UIButton?){
@@ -64,7 +67,37 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         let controller = storyboard?.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController
         controller?.postidforComment = postId!
         navigationController?.pushViewController(controller!, animated: true)
-        
     }
     
+    @objc func likeClick(sender: UIButton?){
+        let userId = arrpostObj[(sender?.tag)!].userId
+        
+        sender?.isSelected = !(sender?.isSelected)!
+        
+        if let isLiked = sender?.isSelected{
+            let postObj = arrpostObj[(sender?.tag)!]
+            if isLiked{
+                //print("Liked")
+                
+                let noLikes = postObj.noLikes! + 1
+                signInSignUpModelObj.updateLikes(noLikes, postObj.postId, isLiked)
+                viewWillAppear(true)
+            }
+            else{
+                viewWillAppear(true)
+                if postObj.noLikes! > 0{
+                    
+                    //print("Unliked")
+                    let noLikes = postObj.noLikes! - 1
+                    
+                    signInSignUpModelObj.updateLikes(noLikes, postObj.postId, isLiked)
+                }
+            }
+        }
+       
+       
+        
+        //likeByUser()
+        
+    }
 }

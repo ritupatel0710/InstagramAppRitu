@@ -20,7 +20,7 @@ class UploadPostsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
+        //navigationController?.isNavigationBarHidden = true
         imagepicker = UIImagePickerController()
         signinSignOutModelObj = SignInSignUpModel()
     }

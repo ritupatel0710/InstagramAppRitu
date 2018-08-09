@@ -57,6 +57,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return googlehandler||facebookDidHandle
     }
-
 }
 

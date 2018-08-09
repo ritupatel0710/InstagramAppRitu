@@ -11,6 +11,9 @@ target 'InstagramAppRitu' do
   pod 'Firebase/Storage'
   pod 'SDWebImage'
   pod 'GoogleSignIn'
+  pod 'FBSDKCoreKit'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
   # Pods for InstagramAppRitu
 
 end

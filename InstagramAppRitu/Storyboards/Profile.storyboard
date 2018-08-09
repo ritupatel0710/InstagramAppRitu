@@ -51,17 +51,10 @@
                                     <constraint firstAttribute="height" constant="100" id="N47-92-vHd"/>
                                     <constraint firstAttribute="width" constant="100" id="Znd-C8-V3u"/>
                                 </constraints>
-                                <state key="normal" image="userProfilePhoto"/>
+                                <state key="normal" image="user"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="48"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                        <color key="value" red="0.70647604695431476" green="0.70647604695431476" blue="0.70647604695431476" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -444,6 +437,5 @@
     </scenes>
     <resources>
         <image name="user" width="33" height="33"/>
-        <image name="userProfilePhoto" width="112" height="112"/>
     </resources>
 </document>

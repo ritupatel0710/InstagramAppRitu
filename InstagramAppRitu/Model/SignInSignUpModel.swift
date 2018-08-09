@@ -211,14 +211,12 @@ class SignInSignUpModel{
         let userid = Auth.auth().currentUser?.uid
         let timestamp = Date().timeIntervalSince1970
         
-        let dict : Dictionary<String,Any> = ["userId":userid,"postDescription":caption,"timestamp":timestamp]
+        let dict : Dictionary<String,Any> = ["userId":userid,"postDescription":caption,"timestamp":timestamp,"noLikes":0]
         
         self.databaseRef.child("Posts").child(key).setValue(dict, withCompletionBlock: { (error, databaseReference) in
             self.saveimageintoStorage(img,key)
             self.setpostidInUserTable(key)
         })
-        
-        
     }
     
     func saveimageintoStorage(_ img: UIImage, _ key: String){
@@ -261,7 +259,7 @@ class SignInSignUpModel{
                 
                             if let postSnapshot = snapshot.value as? Dictionary<String, Any>{
 
-                                let post = Posts(postidKey,postSnapshot["userId"] as! String,postSnapshot["postDescription"] as! String,postSnapshot["timestamp"] as! Double,postSnapshot["imageURL"] as! String, nil)
+                                let post = Posts(postidKey,postSnapshot["userId"] as! String,postSnapshot["postDescription"] as! String,postSnapshot["timestamp"] as! Double,postSnapshot["imageURL"] as! String, nil,nil,postSnapshot["noLikes"] as! Int)
                                 
                                 postArray.append(post)
                             }
@@ -286,7 +284,7 @@ class SignInSignUpModel{
                 
                     self.getUser(userID: post["userId"] as! String, completion: { (user) in
                     
-                        let objPost = Posts(item.key, post["userId"] as! String,post["postDescription"] as! String,post["timestamp"] as! Double, post["imageURL"] as! String, user)
+                        let objPost = Posts(item.key, post["userId"] as! String,post["postDescription"] as! String,post["timestamp"] as! Double, post["imageURL"] as! String, user,nil,post["noLikes"] as! Int)
                         
                         postArr.append(objPost)
                         
@@ -305,16 +303,17 @@ class SignInSignUpModel{
             
             if let userSnapshot = snapshot.value as? Dictionary<String, Any>{
                 let user : User!
-                if let imageurl = userSnapshot["imageURL"]{
-                    if userSnapshot["bio"] != nil{
-                         user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil, bio:userSnapshot["bio"] as! String ?? "" as! String )
-                        
-                    }else{
-                         user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil, bio:nil )
-                        
-                    }
+//                if let imageurl = userSnapshot["imageURL"]{
+//                    if userSnapshot["bio"] != nil{
+//                         user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil, bio:userSnapshot["bio"] as! String ?? "" as! String )
+//
+//                    }else{
+//                         user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: userSnapshot["imageURL"]! as! String, postId: nil, bio:nil )
+//
+//                    }
+                    user = User(userId: userID, email: userSnapshot["email"]! as! String, fullname: userSnapshot["fullName"]! as! String, password: userSnapshot["password"]! as! String, imageURL: nil, postId: nil, bio:nil )
                     completion(user)
-                }
+                //}
             }
         })
     }
@@ -427,27 +426,93 @@ class SignInSignUpModel{
         }
     }
     
-    func whichUser(_ string : String){
-        switch string{
-        case "Google":
-            setGoogleUserFirebase()
-        case "Facebook":
-            setFacebookUserFirebase()
-        default:
-            setFirebaseCurrentUser()
+    func addComment(_ comment: String, _ postId: String){
+        
+        if let userId = Auth.auth().currentUser?.uid{
+            
+            let dict : Dictionary<String,Any> = [userId: "userId"]
+            let commentId = databaseRef.child("Comment").childByAutoId().key
+            
+            databaseRef.child("Posts").child(postId).child("commentBy").updateChildValues(dict)
+            let dictComment : Dictionary<String,Any> = ["comment": comment, "postId": postId, "userId": userId]
+            databaseRef.child("Comment").child(commentId).setValue(dictComment) { (error, ref) in
+                
+            }
         }
     }
     
-    func setGoogleUserFirebase(){
+    func getCommentedUsers(_ postId: String,completion: @escaping (Array<Comment>,Array<User>) -> ()){
+        
+        self.databaseRef.child("Posts").child(postId).child("commentBy").observeSingleEvent(of: .value, with: { (snapshot) in
+            var arrComment = Array<Comment>()
+            var arrUser = Array<User>()
+
+            if let snap = snapshot.value as? Dictionary<String,Any>{
+                for item in snap{
+                    self.getUser(userID: item.key, completion: { (userObj) in
+                        self.databaseRef.child("Comment").observeSingleEvent(of: .value, with: { (snapshotCom) in
+                            if let comment = snapshotCom.value as? Dictionary<String, Any>{
+                                for item in comment{
+                                    if let val = item.value as? Dictionary<String,Any>{
+                                        if let userid = val["userId"] as? String, let postid = val["postId"] as? String{
+                                        
+                                            if userid == userObj.userId && postid == postId{
+                                            let commentObj = Comment(commentId: item.key, postId: val["postId"] as! String, userId: val["userId"] as! String, commentDescription: val["comment"] as! String)
+                                            arrComment.append(commentObj)
+                                            arrUser.append(userObj)
+                                            //print()
+                                            }
+            
+                                        completion(arrComment,arrUser)
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                        })
+                    })
+                }
+            }
+        })
         
     }
     
-    func setFacebookUserFirebase(){
-        
+    func getComment(_ postId: String, completion: @escaping (Array<Comment>) -> ()){
+        self.databaseRef.child("Comment").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let snapComment = snapshot.value as? Dictionary<String,Any>{
+                for item in snapComment{
+                    if let comment = item.value as? Dictionary<String,Any>{
+                        var commentArr = Array<Comment>()
+                        if postId == comment["postId"] as? String{
+                            let commentObj = Comment(commentId: item.key, postId: postId, userId: comment["userId"] as! String, commentDescription: "comment")
+                            commentArr.append(commentObj)
+                        }
+                        completion(commentArr)
+                    }
+                }
+            }
+        })
     }
     
-    func setFirebaseCurrentUser(){
+    func updateLikes(_ noLikes: Int, _ postId: String, _ isLiked: Bool){
         
+        let userId = Auth.auth().currentUser?.uid
+        
+        let dict = ["noLikes": noLikes]
+        databaseRef.child("Posts").child(postId).updateChildValues(dict)
+        
+        var dictLikedBy = Dictionary<String, Any>()
+        
+        if isLiked{
+            dictLikedBy = [userId!:"userId"]
+            databaseRef.child("Posts").child(postId).child("likedBy").updateChildValues(dictLikedBy)
+        }else{
+            dictLikedBy = [userId!: NSNull()]
+            databaseRef.child("Posts").child(postId).child("likedBy").updateChildValues(dictLikedBy)
+            
+        }
     }
+
 }
 

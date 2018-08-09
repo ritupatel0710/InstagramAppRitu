@@ -35,9 +35,15 @@
                                                         <constraint firstAttribute="height" constant="42" id="i7u-Kh-rSn"/>
                                                         <constraint firstAttribute="width" constant="42" id="r2s-0L-Ha2"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1b-aC-NdK">
-                                                    <rect key="frame" x="64" y="22" width="220" height="21"/>
+                                                    <rect key="frame" x="72" y="22" width="220" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="220" id="dNE-bt-Khy"/>
                                                     </constraints>
@@ -51,7 +57,7 @@
                                                 <constraint firstItem="xbQ-3B-lmY" firstAttribute="top" secondItem="Vr8-Pi-DLE" secondAttribute="top" constant="11" id="Ita-vh-BbF"/>
                                                 <constraint firstAttribute="bottom" secondItem="xbQ-3B-lmY" secondAttribute="bottom" constant="11" id="XyU-IQ-KKM"/>
                                                 <constraint firstAttribute="bottom" secondItem="w1b-aC-NdK" secondAttribute="bottom" constant="21.5" id="bqw-BU-7nj"/>
-                                                <constraint firstItem="w1b-aC-NdK" firstAttribute="leading" secondItem="xbQ-3B-lmY" secondAttribute="trailing" constant="8" id="huQ-kc-x21"/>
+                                                <constraint firstItem="w1b-aC-NdK" firstAttribute="leading" secondItem="xbQ-3B-lmY" secondAttribute="trailing" constant="16" id="huQ-kc-x21"/>
                                                 <constraint firstItem="w1b-aC-NdK" firstAttribute="top" secondItem="Vr8-Pi-DLE" secondAttribute="top" constant="22" id="loo-er-uPR"/>
                                             </constraints>
                                         </tableViewCellContentView>
