@@ -11,7 +11,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
+        //navigationController?.isNavigationBarHidden = true
         self.tblView.rowHeight = 580.0
         signInSignUpModelObj = SignInSignUpModel()
     }
@@ -29,6 +29,18 @@ class HomeViewController: UIViewController {
                 self.tblView.reloadData()
             }
         }
+    }
+    
+    @IBAction func commentClick(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func likClick(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func messageClick(_ sender: UIButton) {
+        
     }
 }
 

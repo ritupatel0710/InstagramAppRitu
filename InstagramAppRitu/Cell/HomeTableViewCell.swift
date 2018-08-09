@@ -20,6 +20,12 @@ class HomeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var postDescriptionLabel: UILabel!
     
+    @IBOutlet weak var timestamp: UILabel!
+    
+    @IBOutlet weak var commentClick: UIButton!
+    
+    @IBOutlet weak var likeClick: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

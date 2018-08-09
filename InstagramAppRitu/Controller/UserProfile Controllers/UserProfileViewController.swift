@@ -26,9 +26,9 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationController?.isNavigationBarHidden = true
-        self.navigationController?.isNavigationBarHidden = true
-        profilePhoto.layer.borderWidth = 2
-        profilePhoto.layer.borderColor = UIColor.gray.cgColor
+        //self.navigationController?.isNavigationBarHidden = true
+        //profilePhoto.layer.borderWidth = 2
+        //profilePhoto.layer.borderColor = UIColor.gray.cgColor
         signInSignUpModelObj = SignInSignUpModel()
         getProfilePhoto()
     }

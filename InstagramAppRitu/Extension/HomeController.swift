@@ -49,5 +49,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.postDescriptionLabel.text = postObj.postDescription
         
         cell.numberOfLikesLabel.text = "400 Likes"
+        
+        cell.timestamp.text = postObj.timestamp?.timeElapsed
+        
+        cell.commentClick.tag = indexPath.row
+        cell.likeClick.tag = indexPath.row
+        
+        cell.commentClick.addTarget(self, action: #selector(commentClick(sender:)) , for: .touchUpInside)
     }
+    
+    @objc func commentClick(sender: UIButton?){
+        
+        let postId = arrpostObj[(sender?.tag)!].postId
+        let controller = storyboard?.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController
+        controller?.postidforComment = postId!
+        navigationController?.pushViewController(controller!, animated: true)
+        
+    }
+    
 }

@@ -15,8 +15,9 @@ class Posts: NSObject{
     var timestamp : Double?
     var imageURL: String?
     var userObject : User?
+    var commentObj: Comment?
     
-    init(_ postId: String, _ userId:String, _ postDescription: String, _ timestamp: Double, _ imageURL: String, _ userObject: User?){
+    init(_ postId: String?, _ userId:String?, _ postDescription: String?, _ timestamp: Double?, _ imageURL: String?, _ userObject: User?,_ commentObj:Comment?){
         
         self.postId = postId
         self.userId = userId
@@ -24,5 +25,6 @@ class Posts: NSObject{
         self.timestamp = timestamp
         self.imageURL = imageURL
         self.userObject = userObject
+        self.commentObj = commentObj
     }
 }
