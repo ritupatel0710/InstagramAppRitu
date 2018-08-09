@@ -510,8 +510,31 @@ class SignInSignUpModel{
         }else{
             dictLikedBy = [userId!: NSNull()]
             databaseRef.child("Posts").child(postId).child("likedBy").updateChildValues(dictLikedBy)
-            
         }
+    }
+    
+    func sendpostIdtoHandler(_ postId: String){
+        getUserPostLiked(postId) { (user) in}
+    }
+    
+    func getUserPostLiked(_ postId: String, completion : @escaping (Array<User>)->()){
+        
+        self.databaseRef.child("Posts").child(postId).child("likedBy").observeSingleEvent(of: .value, with: { (snapshot) in
+            var userArr = Array<User>()
+            if let snap = snapshot.value as? Dictionary<String,Any>{
+                
+                for item in snap{
+                    
+                    self.getUser(userID: item.key, completion: { (user) in
+                        
+                        userArr.append(user)
+                        completion(userArr)
+                    })
+                }
+                
+            }
+            
+        })
     }
 
 }

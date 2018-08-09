@@ -55,10 +55,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         
         cell.likeClick.tag = indexPath.row
         cell.commentClick.tag = indexPath.row
+        cell.noofLikesClick.tag = indexPath.row
         
         cell.commentClick.addTarget(self, action: #selector(commentClick(sender:)) , for: .touchUpInside)
         cell.likeClick.addTarget(self, action: #selector(likeClick(sender:)) , for: .touchUpInside)
-        
+        cell.noofLikesClick.addTarget(self, action: #selector(noofLikesClick(sender:)) , for: .touchUpInside)
     }
     
     @objc func commentClick(sender: UIButton?){
@@ -94,10 +95,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
         }
-       
-       
+    }
+    
+    @objc func noofLikesClick(sender: UIButton?){
         
-        //likeByUser()
+        let postId = arrpostObj[(sender?.tag)!].postId
+        signInSignUpModelObj.sendpostIdtoHandler(postId!)
         
+        let controller = storyboard?.instantiateViewController(withIdentifier: "NoofLikesViewController") as? NoofLikesViewController
+        controller?.postIdforLike = postId!
+        navigationController?.pushViewController(controller!, animated: true)
     }
 }

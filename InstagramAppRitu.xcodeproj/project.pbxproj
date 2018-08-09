@@ -47,6 +47,7 @@
 		495AC7D92119237900547560 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495AC7D82119237900547560 /* FriendsViewController.swift */; };
 		495AC7DB211923A800547560 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495AC7DA211923A800547560 /* FriendTableViewCell.swift */; };
 		49D9B608211B9DAF00F75C1E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D9B607211B9DAF00F75C1E /* Comment.swift */; };
+		49D9B60C211C02E600F75C1E /* NoofLikesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D9B60B211C02E600F75C1E /* NoofLikesViewController.swift */; };
 		E85B5E0DF19E31ADEB243B2F /* Pods_InstagramAppRitu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4A6B445318D861CED0BCDD /* Pods_InstagramAppRitu.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		495AC7D82119237900547560 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		495AC7DA211923A800547560 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		49D9B607211B9DAF00F75C1E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		49D9B60B211C02E600F75C1E /* NoofLikesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoofLikesViewController.swift; sourceTree = "<group>"; };
 		7E0710447E9262ED3F72B659 /* Pods-InstagramAppRitu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramAppRitu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramAppRitu/Pods-InstagramAppRitu.debug.xcconfig"; sourceTree = "<group>"; };
 		DE4A6B445318D861CED0BCDD /* Pods_InstagramAppRitu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramAppRitu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -186,6 +188,7 @@
 				495AC7D02118BD0D00547560 /* Initial Controllers */,
 				493E177F21129A4700768C30 /* HomeViewController.swift */,
 				493A037D211524E4003C5922 /* UploadPostsViewController.swift */,
+				49D9B60B211C02E600F75C1E /* NoofLikesViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D9B60C211C02E600F75C1E /* NoofLikesViewController.swift in Sources */,
 				49555FCF211B827A006EFE65 /* CommentViewController.swift in Sources */,
 				493A037E211524E4003C5922 /* UploadPostsViewController.swift in Sources */,
 				495AC7CF2118BCF400547560 /* UserListViewController.swift in Sources */,

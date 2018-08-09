@@ -41,10 +41,10 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                     let fullName = authResult?.user.displayName
                     self.signInSignUpModelObj.signinwithGoogle(userId!, email!, fullName!)
                     self.performSegue(withIdentifier: "TabBarController", sender: nil)
-                    //authResult?.user.
                 }
             }
         }
+        
     }
     @IBAction func signinFacebook(_ sender: UIButton) {
         
@@ -56,8 +56,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                 print("Sign in with FB")
             case .failed: print("error")
             case .cancelled: print("cancelled")
-            default:break
-                
+            default:
+                break
             }
         }
     }
@@ -78,8 +78,6 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     
     @IBAction func signInClick(_ sender: UIButton) {
         signInSignUpModelObj.signIn(email: emailTF.text!, password: passwordTF.text!) { (error) in
-            print(error)
-            
             if error == nil{
                 TWMessageBarManager.sharedInstance().showMessage(withTitle: "SUCCESS!", description: "Successful Sign Up", type: .success, duration: 2.0)
                 self.performSegue(withIdentifier: "TabBarController", sender: sender)

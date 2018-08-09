@@ -31,15 +31,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @IBAction func commentClick(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func likClick(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func messageClick(_ sender: UIButton) {
+    @IBAction func noofLikesClick(_ sender: UIButton) {
         
     }
 }

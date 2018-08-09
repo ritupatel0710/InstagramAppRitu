@@ -18,7 +18,7 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tblView.tableFooterView = view
+        tblView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -25,7 +25,7 @@ class UpdateUserProfileViewController: UIViewController {
         bioTV!.layer.borderWidth = 1
         bioTV!.layer.borderColor = UIColor.gray.cgColor
         signInSignOutModelObj = SignInSignUpModel()
-        navigationController?.isNavigationBarHidden = true
+        //navigationController?.isNavigationBarHidden = true
         editUserData()
     }
 

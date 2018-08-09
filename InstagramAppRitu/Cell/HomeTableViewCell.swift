@@ -26,6 +26,7 @@ class HomeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var likeClick: UIButton!
     
+    @IBOutlet weak var noofLikesClick: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
